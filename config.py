@@ -8,6 +8,7 @@ import os
 # The directory where the app resides
 base_directory = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config:
     """
     Define App configuration and environments
@@ -15,6 +16,10 @@ class Config:
     # Avoid incurring memory overhead by setting
     # SQLALCHEMY_TRACK_MODIFICATIONS to False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    @staticmethod
+    def init_app(app):
+        pass
 
 
 class DevelopmentConfig(Config):

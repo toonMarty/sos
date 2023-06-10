@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} sos -
+{% for ticket in tickets %}
+    {% if ticket.subject == ticket_subject  %}
+        {{ ticket.subject }}
+    {% endif %}
+{% endfor %}
+
+tickets
+{% endblock %}
+
+{% block page_content %}
+    {% include '_tickets.html' %}
+{% endblock %}

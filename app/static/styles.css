@@ -1,0 +1,199 @@
+.ticket-frame {
+    background: #141414;
+    height: 785px;
+}
+
+.ticket-header-title {
+    color: #FFFFFF;
+    margin-left: 650px;
+    margin-top: 90px;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+}
+
+
+.cancel-btn {
+    float: right;
+    margin-top: -35px;
+    margin-right: 70px;
+}
+
+.ticket-form {
+    margin-left: 635px;
+}
+
+.form-group {
+    color: #FFFFFF;
+    margin-top: 10px;
+    padding-top: 5px;
+}
+
+
+.btn-create-ticket {
+    float: right;
+    background-color: #141414;
+    color: #FFFFFF;
+    min-height: 75px; 
+    min-width: 420px;
+    border-radius: 15px;
+    border-color: #1035AC;
+    font-weight: 600;
+    font-size: 20px;
+    margin-left: 20px;
+    
+}
+
+.btn-create-ticket:hover {
+    background-color: #1035AC;
+}
+
+.col-md-4 {
+    width: 450px;
+}
+
+.cancel-btn:hover {
+    background-color: #1035AC;
+}
+
+.support-ticket-image {
+    float: left;
+    margin-top: -620px;
+}
+
+
+.alert {
+    color: #FFFFFF;
+    background-color: #1035AC;
+    width: 50%;
+    height: 20%;
+    margin: auto;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-nav {
+    float: right;
+    letter-spacing: 1px;
+}
+
+.sos-logo{
+    height: 51px;
+    width: 107px;
+    margin-top: -15px;
+    margin-left: -17px;
+}
+
+ul.tickets {
+    list-style-type: none;
+    padding: 0px;
+    margin: 16px 0px 0px 0px;
+    border-top: 1px solid #e0e0e0;
+}
+ul.tickets li.ticket {
+    padding: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+ul.tickets li.ticket:hover {
+    background-color: #ADD8E6;
+}
+
+.ticket-first-letter {
+    position: absolute;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+
+    line-height: 39px;
+
+    width: 26px;
+    height: 35px;
+
+    margin-left: 10px;
+    margin-right: 40px;
+    margin-bottom: -46px;
+    padding-top: 4px;
+}
+
+.ticket-bubble {
+    border-radius: 50%;
+    margin-left: 0;
+    width: 48px;
+    height: 45px;
+}
+
+
+.ticket-subject {
+    margin-left: 50px;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top: -44px;
+}
+
+.ticket-date {
+    float: right;
+    margin-top: -70px;
+}
+.ticket-issue {
+    margin-left: 60px;
+    margin-top: -7px;
+    padding-bottom: 30px;
+}
+
+.ticket-priority {
+    float: right;
+    margin-top: -30px;
+}
+
+.ticket-priority-low {
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    background-color: #3FFF00;
+    margin-left: -17px;
+}
+
+.ticket-priority-high {
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    background-color: #FF0000;
+    margin-left: -17px;
+}
+
+.ticket-priority-medium {
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    background-color: #FFBF00;
+    margin-left: -17px;
+}
+
+a.ticket-items:link {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+a.ticket-items:visited {
+    text-decoration: inherit;
+    color: inherit;
+
+}
+
+.ticket-count-bubble {
+    background-color: red;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    color: white;
+
+    margin-left: 90px;
+    margin-top: -25px;
+
+}

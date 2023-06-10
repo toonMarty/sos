@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-""" Blueprint creation to define main routes"""
+""" Blueprint creation to define routes"""
 from flask import Blueprint
 
 main = Blueprint('main', __name__)

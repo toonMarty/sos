@@ -1,0 +1,39 @@
+<ul class="tickets">
+    {% for ticket in tickets %}
+        <a href="/view-tickets/{{ ticket.subject }}" class="ticket-items"><li class="ticket">
+            <div class="ticket-first-letter">
+                {{ ticket.get_ticket_subject_first_letter() }}
+            </div>
+
+            <div class="ticket-bubble"></div>
+
+            <div class="ticket-subject">
+                {{ ticket.subject }}
+            </div>
+
+            <div class="ticket-issue">
+                {{ ticket.issue_description }}
+            </div>
+
+            <div class="ticket-priority">
+                {% for priority in ticket.ticket_priority %}
+                    {% if priority == 'L' %}
+                        <div class="ticket-priority-low">
+                        </div>
+                    {% elif priority == 'M' %}
+                        <div class="ticket-priority-medium">
+                        </div>
+                    {% elif priority == 'H' %}
+                        <div class="ticket-priority-high">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!--<div class="ticket-owner">
+                {{ ticket.ticket_owner }}
+            </div>-->
+            <div class="ticket-date">{{ moment(ticket.date_submitted).fromNow() }}</div>
+        </li></a>
+    {% endfor %}
+</ul>

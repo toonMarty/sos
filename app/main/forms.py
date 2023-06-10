@@ -5,6 +5,11 @@ from wtforms.validators import DataRequired
 
 
 class TicketForm(FlaskForm):
+    """
+    Define a ticket form that the novice user will use to submit
+    tickets
+    """
+
     ticket_owner = StringField('Ticket owner', validators=[DataRequired()])
     subject = StringField('Subject', validators=[DataRequired()])
     ticket_priority = SelectField('Priority', validators=[DataRequired()],

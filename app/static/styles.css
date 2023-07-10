@@ -197,3 +197,99 @@ a.ticket-items:visited {
     margin-top: -25px;
 
 }
+
+.ticket-owner {
+    margin-left: 20%;
+    background-color: #00BFFF;
+    border-radius: 5px;
+    width: 70px;
+    text-align: center;
+    font-weight: 700;
+    margin-top: -28px;
+    color: black;
+}
+
+.sol-ticket {
+    float: right;
+    margin-top: -54px;
+    margin-right: 0;
+    border-radius: 8px;
+    background-color: #00BFFF;
+    color: white;
+    font-weight:600;
+    padding: 0 8px 0 0;
+}
+
+a.sol-ticket:hover {
+    background-color: white;
+}
+
+.ticket-ID-header {
+    margin-left: 10%;
+    font-weight: bold;
+    
+}
+
+.partner {
+    margin-bottom: -40px;
+    padding-top: 20px;
+}
+
+.passcode {
+    margin-left: 335px;
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
+.ticket-ID {
+    margin-left: 110px;
+    margin-top: -20px;
+    padding: 8px;
+    border: 1px solid #DDDDDD;
+    background-color: #1e1e1e;
+    color: white;
+    border-width: 2px;
+    border-radius: 5px;
+    width: 150px;
+    height: 43px;
+}
+
+
+.ticket-passcode-header {
+    margin-left: 45%;
+    margin-top: 15px;
+    font-weight: bold;
+    margin-top: -20px;
+    width: 70px;
+}
+
+#ticket-passcode {
+    margin-left: 445px;
+    margin-top: -63px;
+    border: 1px solid #DDDDDD;
+    border-width: 2px;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    width: 390px;
+    height: 43px;
+    padding: 8px;
+    color: white;
+}
+
+.clip-copy {
+    padding: 0px 0px;
+    margin-left: 185px;
+    margin-top: -67px;
+    font-weight: bold;
+    background-color: #1e1e1e;
+    color: white;
+
+}
+
+.clip-copy-passcode {
+    padding: 0px 0px;
+    margin-left: 750px;
+    margin-top: -65px;
+    background-color: #1e1e1e;
+    color: white;
+    font-weight: bold;
+}

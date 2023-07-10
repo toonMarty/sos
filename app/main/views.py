@@ -49,3 +49,12 @@ def view_ticket_by_subject(ticket_subject):
 
     return render_template('specific_ticket.html', tickets=tickets, 
                            ticket_subject=ticket_subject)
+
+
+@main.route('/agent/solve-tickets', methods=['GET', 'POST'], strict_slashes=False)
+def solve_tickets():
+    tickets = Ticket.query.order_by(Ticket.ticket_priority.asc()).all()
+    tkt_count = Ticket.ticket_count(tickets)
+    
+    return render_template('solve_ticket.html', tickets=tickets,
+                           tkt_count=tkt_count)

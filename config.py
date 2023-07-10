@@ -16,6 +16,7 @@ class Config:
     # Avoid incurring memory overhead by setting
     # SQLALCHEMY_TRACK_MODIFICATIONS to False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
     @staticmethod
     def init_app(app):

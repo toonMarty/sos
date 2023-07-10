@@ -20,6 +20,8 @@ class Ticket(db.Model):
     issue_description = db.Column(db.Text, nullable=False)
     date_submitted = db.Column(db.DateTime(), default=datetime.utcnow)
     ticket_priority = db.Column(db.String(20))
+
+    team_viewer_id = db.Column(db.String(255), default='000')
     team_viewer_session_password = db.Column(db.String(255), nullable=False)
 
     novice_id = db.Column(db.Integer, db.ForeignKey('novices.id'))

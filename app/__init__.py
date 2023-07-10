@@ -47,6 +47,4 @@ def create_app(config_name):
     with app.app_context():
         db.create_all()
 
-
-
     return app

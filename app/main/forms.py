@@ -14,7 +14,9 @@ class TicketForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     ticket_priority = SelectField('Priority', validators=[DataRequired()],
                                   choices=[('L', 'Low'), ('M', 'Medium'), ('H', 'High')])
+
     tv_session_password = PasswordField('Passcode', validators=[DataRequired()])
+    team_viewer_id = StringField('Your ID', validators=[DataRequired()])
 
     issue = TextAreaField('Issue', validators=[DataRequired()],
                           render_kw={'placeholder': 'Describe your issue'})

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+
+{% block title %} sos - Solve Tickets {% endblock %}
+
+{% block page_content %}
+    <ul class="tickets">
+    {% for ticket in tickets %}
+        <li class="ticket">
+            <div class="ticket-first-letter">
+                {{ ticket.get_ticket_subject_first_letter() }}
+            </div>
+
+            <div class="ticket-bubble"></div>
+
+            <div class="ticket-subject">
+                {{ ticket.subject }}
+            </div>
+
+            <div class="ticket-owner">
+                {{ ticket.ticket_owner }}
+            </div>
+
+            <div class="ticket-issue">
+                {{ ticket.issue_description }}
+            </div>
+
+
+            <div class="ticket-priority">
+                {% for priority in ticket.ticket_priority %}
+                    {% if priority == 'L' %}
+                        <div class="ticket-priority-low">
+                        </div>
+                    {% elif priority == 'M' %}
+                        <div class="ticket-priority-medium">
+                        </div>
+                    {% elif priority == 'H' %}
+                        <div class="ticket-priority-high">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="ticket-ID-header">
+                <p class="partner">Partner-ID</p>
+                <p class="passcode">Passcode</p>
+            </div>
+
+            <div class="ticket-ID">
+                {{ ticket.team_viewer_id }}
+            </div>
+
+            <button class="btn clip-copy" onclick="copyToClipboard('{{ ticket.team_viewer_id }}')">
+                <img src="/static/images/copy-dark.png">Copy
+            </button>
+
+            <div id="ticket-passcode">
+                {{ ticket.team_viewer_session_password }}
+            </div>
+            
+            <button class="btn clip-copy-passcode" onclick="copyToClipboard('{{ ticket.team_viewer_session_password }}')">
+                <img src="/static/images/copy-dark.png">Copy
+            </button>
+
+
+            <a class="btn btn-default sol-ticket" href="https://start.teamviewer.com">
+                <img src="/static/images/teamviewer.png">Solve
+            </a>
+
+            
+            <div class="ticket-date">{{ moment(ticket.date_submitted).fromNow() }}</div>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

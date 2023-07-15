@@ -30,7 +30,8 @@ $ sudo vi /etc/elasticsearch/elasticsearch.yml
 
 Upon opening the elasticsearch.yml file, find the line that specifies network.host, uncomment it and replace its value with localhost so it reads like this:
 
-```network.host: localhost
+```
+network.host: localhost
 ```
 Next up, start the elasticsearch service.
 

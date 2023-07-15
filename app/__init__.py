@@ -8,6 +8,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_moment import Moment
+from elasticsearch import Elasticsearch
 
 bootstrap = Bootstrap()
 moment = Moment()
@@ -34,6 +35,10 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
+
+    # set elasticsearch as an attribute because it lacks a flask extension wrapper
+    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']], request_timeout=60) \
+        if app.config['ELASTICSEARCH_URL'] else None
 
     # Initialize the Flask application for use with the following
     # extension instances

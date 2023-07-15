@@ -6,8 +6,9 @@ from sqlalchemy import func
 
 from app.main import main
 from flask import render_template, redirect, url_for, flash, request
-from app.main.forms import TicketForm
+from app.main.forms import TicketForm, SearchForm
 from app.models.ticket import Ticket
+from sqlalchemy.exc import OperationalError
 from app import db
 
 
@@ -35,7 +36,7 @@ def submit_ticket():
 
 @main.route('/view-tickets', methods=['GET', 'POST'], strict_slashes=False)
 def view_ticket():
-    tickets = Ticket.query.order_by(Ticket.date_submitted.desc()).all()
+    tickets = Ticket.query.group_by(Ticket.subject).order_by(Ticket.date_submitted.desc()).all()
     tkt_count = Ticket.ticket_count(tickets)
     
     return render_template('view_ticket.html', tickets=tickets, 
@@ -58,3 +59,30 @@ def solve_tickets():
     
     return render_template('solve_ticket.html', tickets=tickets,
                            tkt_count=tkt_count)
+
+@main.before_request
+def before_request():
+    g.search_form = SearchForm()
+
+
+@main.route('/search')
+def search():
+    if not g.search_form.validate():
+        return redirect(url_for('main.view_ticket'))
+
+    try:
+        page = request.args.get('page', 1, type=int)
+        tickets, total = Ticket.search(g.search_form.q.data, page,
+                                       current_app.config['TICKETS_PER_PAGE'])
+
+        next_url = url_for('main.search', q=g.search_form.q.data, page=page + 1) \
+            if page > page * current_app.config['TICKETS_PER_PAGE'] else None
+
+        prev_url = url_for('main.search', q=g.search_form.q.data, page=page - 1) if page > 1 else None
+
+        return render_template('search.html', title='Search Tickets',
+                               tickets=tickets,
+                               next_url=next_url,
+                               prev_url=prev_url)
+    except OperationalError:
+        return render_template('404.html')

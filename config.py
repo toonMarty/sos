@@ -17,6 +17,8 @@ class Config:
     # SQLALCHEMY_TRACK_MODIFICATIONS to False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
+    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
+    TICKETS_PER_PAGE = 25
 
     @staticmethod
     def init_app(app):

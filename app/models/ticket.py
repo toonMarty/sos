@@ -7,11 +7,13 @@ from sqlalchemy import text, func
 from app import db
 
 from datetime import datetime
+from .searchable_mixin import SearchableMixin
 import random
 
 
-class Ticket(db.Model):
+class Ticket(SearchableMixin, db.Model):
     """Define tickets."""
+    __searchable__ = ['subject', 'issue_description']
     __tablename__ = 'tickets'
 
     id = db.Column(db.Integer, primary_key=True)

@@ -1,7 +1,7 @@
 # SOS
 SOS is a help desk ticketing system...
 
-# Elasticsearch installation and Configuration commands
+# Elasticsearch Installation and Configuration commands
 
 # Step 1 - Installing and Configuring Elasticsearch
 ```
@@ -26,7 +26,9 @@ $ sudo apt install elasticsearch
 ```
 
 # Step 2 - Configuring Elasticsearch
+```
 $ sudo vi /etc/elasticsearch/elasticsearch.yml
+```
 
 Upon opening the elasticsearch.yml file, find the line that specifies network.host, uncomment it and replace its value with localhost so it reads like this:
 

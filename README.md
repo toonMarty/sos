@@ -3,7 +3,7 @@ SOS is a help desk ticketing system...
 
 # Elasticsearch installation and Configuration commands
 
-# Step 1 - Installing and COnfiguring Elasticsearch
+# Step 1 - Installing and Configuring Elasticsearch
 ```
 $ curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic.gpg
 ```
@@ -30,28 +30,29 @@ $ sudo vi /etc/elasticsearch/elasticsearch.yml
 
 Upon opening the elasticsearch.yml file, find the line that specifies network.host, uncomment it and replace its value with localhost so it reads like this:
 
-	```
-	network.host: localhost
-	```
+```network.host: localhost
+```
 Next up, start the elasticsearch service.
 
 Before starting the elasticsearch service, it might help to know which init system you are using so that you can start elasticsearch using the right commands.
 To know which init system you are using, use the following command in your terminal:
 
-	```
-	ps -p 1 -o comm=
-	```
+```
+ps -p 1 -o comm=
+```
 The above command should show **init** or **sysv**. If you see **init**, it means your system is not using systemd and you should use the init command:
 
-	| Systemd command (**sysv**)		| Sysvinit command (**init**)|
-	| --------------------------------------| ---------------------------|
-	| systemctl start elasticsearch		| service elasticsearch start|
+| Systemd command (**sysv**)    | Sysvinit command (**init**) |
+|-------------------------------|-----------------------------|
+| systemctl start elasticsearch | service elasticsearch start |
 
 
 Next, run the following command to enable Elasticsearch to start up every time your server boots:
-  	| Systemd command (**sysv**)		| Sysvinit command (**init**)	    |
-	| ------------------------------------- | --------------------------------- |
-	| systemctl enable service_name		| update-rc.d elasticsearch start   |
+Use the appropriate command based on your init system, like in the previous step.
+
+| Systemd command (**sysv**)    | Sysvinit command (**init**)     |
+|-------------------------------|---------------------------------|
+| systemctl enable elasticsearch| update-rc.d elasticsearch start |
 
 
 # Step 3 - Securing Elasticsearch
@@ -74,7 +75,7 @@ Status: active
 
 To			Action	From
 --			------	----
-**9200			ALLOW	198.51.100.0**
+9200			ALLOW	198.51.100.0
 22			ALLOW	Anywhere
 22 (v6)			ALLOW 	Anywhere (v6)
 ```

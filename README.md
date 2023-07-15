@@ -109,5 +109,4 @@ Output
 }
 ```
 
-For a more detailed description of how to install and configure elasticsearch check out [How To Install and Configure Elasticsearch on Ubuntu 22.04]
-(https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-22-04)
+For a more detailed description of how to install and configure elasticsearch check out [How To Install and Configure Elasticsearch on Ubuntu 22.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-22-04)

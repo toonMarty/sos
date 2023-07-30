@@ -5,7 +5,8 @@ Code to run for each URL requested by the user
 from sqlalchemy import func
 
 from app.main import main
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, \
+    session, g, current_app, abort
 from app.main.forms import TicketForm, SearchForm
 from app.models.ticket import Ticket
 from sqlalchemy.exc import OperationalError

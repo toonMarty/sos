@@ -30,7 +30,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     # The database URI that will be used for the connection
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DB_URL') or \
-        'sqlite:///' + os.path.join(base_directory, 'sos-db-dev.sqlite')
+        'sqlite:///' + os.path.join(base_directory, 'sos-dev-dbase.sqlite')
 
 
 class ProductionConfig(Config):

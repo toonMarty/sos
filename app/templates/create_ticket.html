@@ -1,55 +1,9 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% from "bootstrap5/form.html" import render_form %}
 
 {% block title %} sos - Create Ticket {% endblock %}
 
 {% block page_content %}
-    <div class="container ticket-frame">
-        <div class="ticket-header">
-            <h1 class="ticket-header-title">Create Ticket</h1>
-        </div>
-
-        <div class="cancel-btn">
-            <a href="/" class="cancel">
-                <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line y1="-1.5" x2="25.6524" y2="-1.5" transform="matrix(-0.705998 0.708215 -0.705998 -0.708215 18.1105 0)" stroke="white" stroke-width="3"/>
-                    <line y1="-1.5" x2="25.0194" y2="-1.5" transform="matrix(0.735867 0.677127 -0.674825 0.737978 0.75905 2.88568)" stroke="white" stroke-width="3"/>
-                </svg>
-            </a>
-        </div>
-
-
-        <form class="col-md-4 ticket-form" method="post">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ wtf.form_field(form.ticket_owner) }}
-            </div>
-
-            <div class="form-group">
-               {{ wtf.form_field(form.subject) }}
-            </div>
-
-            <div class="form-group">
-                {{ wtf.form_field(form.ticket_priority) }}
-            </div>
-
-            <div class="form-group">
-                {{ wtf.form_field(form.tv_session_password) }}
-            </div>
-
-            <div class="form-group">
-                {{ wtf.form_field(form.issue) }}
-            </div>
-
-            <div class="form-group">
-                {{ wtf.form_field(form.submit_ticket, class_="btn-create-ticket") }}
-            </div>
-        </form>
-        
-        <div class="support-ticket-image">
-            <img src="/static/images/ticket_icon.svg">
-        </div>
-    </div>
-
+    {{ render_form(form) }}
 {% endblock %}
 

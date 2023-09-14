@@ -293,3 +293,45 @@ a.sol-ticket:hover {
     color: white;
     font-weight: bold;
 }
+
+.login-form input[type="text"], 
+.login-form input[type="password"],
+.login-form input[type="checkbox"]{
+    border-color: #007AFF;
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.login-card {
+    background-color: #1e1e1e;
+}
+
+.email-field, .password-field, 
+.remember-me, .card-title, .login-header{
+    font-weight: 600;
+    color: white;
+}
+
+.login-header {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#login {
+    background-color:#1e1e1e;
+    color: white;
+    font-weight: 600;
+    width: 12em;
+}
+
+#login:hover {
+    background-color: #007AFF;
+    color: black;
+}
+
+.login-create-account {
+    color: white;
+    border-top: 1px solid grey;
+    margin-top: 30px;
+    padding-top: 8px;
+}

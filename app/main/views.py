@@ -27,6 +27,7 @@ def submit_ticket():
                         subject=form.subject.data,
                         ticket_priority=form.ticket_priority.data,
                         team_viewer_session_password=form.tv_session_password.data,
+                        team_viewer_id=form.team_viewer_id.data,
                         issue_description=form.issue.data)
         ticket.create_ticket()
         flash('Your ticket has been sent. Please Wait while an '

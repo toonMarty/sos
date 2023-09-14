@@ -1,6 +1,7 @@
 alembic==1.10.4
 Bootstrap-Flask==2.3.0
 elasticsearch==8.8.0
+email-validator==2.0.0.post2
 Flask==2.3.2
 Flask-Login==0.6.2
 Flask-Mail==0.9.1

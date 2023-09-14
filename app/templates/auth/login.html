@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form_row %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block title %}sos | Login{% endblock %}
+
+{% block page_content %}
+
+    <div class="card mx-auto" style="width: 25rem; margin-top: 15vh;">
+      <div class="card-body login-card">
+        <div class="card-title">
+            <img src="/static/images/sos_logo.png" height="45" width="45" />
+            <div class="text-center login-header">
+                Login
+            </div>
+        </div>
+        <form class="card-text login-form" method="post">
+            {{ form.csrf_token() }}
+            <div class="mb-3 email-field">
+                {{ render_field(form.email) }}
+            </div>
+            <div class="mb-3 password-field">
+                {{ render_field(form.password) }}
+            </div>
+            <div class="mb-3 remember-me">
+                {{ render_field(form.remember_me) }}
+            </div>
+
+            <div class="mb-3 text-center">
+            {{ render_field(form.login)}}
+            </div>
+
+            <div class="text-center login-create-account">
+                <p>New to sos?
+                    <a href="#" style="text-decoration: none;">Create an account</a>
+                </p>
+            </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}
+

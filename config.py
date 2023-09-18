@@ -13,11 +13,20 @@ class Config:
     """
     Define App configuration and environments
     """
+
+    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
+    MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.googlemail.com')
+    MAIL_PORT = int(os.environ.get('MAIL_PORT', '587'))
+    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', 1]
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     # Avoid incurring memory overhead by setting
     # SQLALCHEMY_TRACK_MODIFICATIONS to False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
+    SOS_MAIL_SUBJECT_PREFIX = '[sos]'
+    SOS_MAIL_SENDER = os.environ.get('SOS_MAIL_SENDER')
+    SOS_ADMIN = os.environ.get('SOS_ADMIN')
     TICKETS_PER_PAGE = 25
 
     @staticmethod

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block title %}sos | Register{% endblock %}
+
+{% block page_content %}
+    <div class="card mx-auto" style="width: 40rem; margin-top: 12vh; border-radius: 25px;">
+      <div class="card-body sign-up-card" style="border-radius: 25px;">
+        <div class="card-title">
+            <div class="text-center">
+                <img src="/static/images/sos_logo.png" height="50" width="50" />
+            </div>
+            <div class="text-center sign-up-header">
+                Create an Account
+            </div>
+        </div>
+        <form class="card-text sign-up-form" method="post">
+            {{ form.csrf_token() }}
+            <div class="row name-field">
+                <div class="col first-name-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa-solid fa-user login-email-icon" style="color: #007AFF"></i>
+                        </div>
+                        {{ render_field(form.first_name) }}
+                    </div>
+                </div>
+
+                <div class="col last-name-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa-solid fa-user login-email-icon" style="color: #007AFF"></i>
+                        </div>
+                        {{ render_field(form.last_name) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 department-field">
+                {{ render_field(form.department) }}
+            </div>
+
+            <div class="mb-3 sign-up-email-field">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa-solid fa-envelope login-email-icon" style="color: #007AFF"></i>
+                    </div>
+                    {{ render_field(form.email) }}
+                </div>
+            </div>
+
+            <div class="mb-3 username-field">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa-solid fa-user login-email-icon" style="color: #007AFF"></i>
+                    </div>
+                    {{ render_field(form.username) }}
+                </div>
+            </div>
+
+            <div class="row sign-up-password">
+                <div class="col sign-up-password-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa-solid fa-lock login-password-icon" style="color: #007AFF"></i>
+                        </div>
+                        {{ render_field(form.password) }}
+                    </div>
+                </div>
+
+                <div class="col confirm-password-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa-solid fa-lock login-password-icon" style="color: #007AFF"></i>
+                        </div>
+                        {{ render_field(form.confirm_password) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 text-center">
+                {{ render_field(form.sign_up)}}
+            </div>
+
+            <div class="text-center" style="color: white; font-weight:bold;">
+                Already have an account? &nbsp;
+                <a href="{{ url_for('auth.login') }}" style="text-decoration:none;">
+                    Sign In
+                </a>
+            </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}
+

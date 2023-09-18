@@ -5,9 +5,8 @@
 {% block title %}sos | Login{% endblock %}
 
 {% block page_content %}
-
-    <div class="card mx-auto" style="width: 25rem; margin-top: 15vh;">
-      <div class="card-body login-card">
+    <div class="card mx-auto" style="width: 25rem; margin-top: 12vh; border-radius: 25px;">
+      <div class="card-body login-card" style="border-radius: 25px;">
         <div class="card-title">
             <img src="/static/images/sos_logo.png" height="45" width="45" />
             <div class="text-center login-header">
@@ -17,22 +16,39 @@
         <form class="card-text login-form" method="post">
             {{ form.csrf_token() }}
             <div class="mb-3 email-field">
-                {{ render_field(form.email) }}
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa-solid fa-user login-email-icon" style="color: #007AFF"></i>
+                    </div>
+                    {{ render_field(form.email) }}
+                </div>
             </div>
+
             <div class="mb-3 password-field">
-                {{ render_field(form.password) }}
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa-solid fa-lock login-password-icon" style="color: #007AFF"></i>
+                    </div>
+                    {{ render_field(form.password) }}
+                </div>
             </div>
+            <div>
+                <a href="{{ url_for('auth.password_reset_request') }}" class="float-end" style="text-decoration: none; margin-bottom: 10px; font-weight:bold;">
+                    Forgot password?
+                </a>
+            </div>
+
             <div class="mb-3 remember-me">
                 {{ render_field(form.remember_me) }}
             </div>
 
-            <div class="mb-3 text-center">
-            {{ render_field(form.login)}}
+            <div class="mb-3 text-center" style="margin-top: 60px;">
+                {{ render_field(form.login)}}
             </div>
 
             <div class="text-center login-create-account">
                 <p>New to sos?
-                    <a href="#" style="text-decoration: none;">Create an account</a>
+                    <a href="{{ url_for('auth.register') }}" style="text-decoration: none;">Create an account</a>
                 </p>
             </div>
         </form>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form_row %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block title %}sos | Change Email{% endblock %}
+
+{% block page_content %}
+    <div class="card mx-auto" style="width: 30rem; margin-top: 5vh; margin-bottom: 10vh; border-radius: 25px;" >
+        <img src="/static/images/change-email.avif" class="card-img-top reset-password-poster" alt="..." height="400">
+        <div class="card-body change-email-card">
+            <h3 class="card-title text-center change-email-header">Change Your Email</h3>
+            <form class="card-text change-email-form" method="post">
+                {{ form.csrf_token() }}
+                <div class="mb-3 new-email-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa-solid fa-user login-email-icon" style="color: #007AFF"></i>
+                        </div>
+                        {{ render_field(form.new_email) }}
+                    </div>
+                </div>
+
+                <div class="mb-3 change-email-password-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa-solid fa-key login-email-icon" style="color: #007AFF"></i>
+                        </div>
+                        {{ render_field(form.change_email_password) }}
+                    </div>
+                </div>
+
+                <div class="mb-3 text-center">
+                    {{ render_field(form.update_email)}}
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
+

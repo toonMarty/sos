@@ -5,6 +5,8 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="icon" type="image/x-icon" href="/static/images/sos_logo.png">
         <link rel="stylesheet" href="/static/styles.css">
 
         {% block styles %}
@@ -29,9 +31,32 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {{ render_nav_item('main.index', 'Home') }}
-                {{ render_nav_item('main.submit_ticket', 'Create Ticket') }}
-                {{ render_nav_item('main.view_ticket', 'View Tickets') }}
+                {% if current_user.is_authenticated %}
+                    {{ render_nav_item('main.submit_ticket', 'Create Ticket') }}
+                    {{ render_nav_item('main.view_ticket', 'View Tickets') }}
+                {% endif %}
             </ul>
+
+            <div class="me-auto">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu" style="background-color:#212529; color: white;">
+                            <li><a class="dropdown-item" href="{{ url_for('auth.change_password') }}">Change Password</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="btn btn-primary btn-login" role="button" href="{{ url_for('auth.login') }}">Login</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
 
             {% if g.search_form %}
                 <form class="d-flex" method="get" action="{{ url_for('main.search') }}">
@@ -42,7 +67,7 @@
             {% endif %}
         </div>
     </div>
-    </nav>
+    </nav></div>
     <body>
         <!-- Your page content -->
         {% block content %}

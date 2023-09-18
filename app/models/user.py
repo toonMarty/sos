@@ -8,10 +8,12 @@ the users include:
 - Agent
 """
 from app import db, login_manager
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager
-
+import jwt
+from flask import current_app
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 
 class User(UserMixin, db.Model):
@@ -29,6 +31,7 @@ class User(UserMixin, db.Model):
     department = db.Column(db.String(64), nullable=False)
     created_on = db.Column(db.DateTime(), default=datetime.now)
     updated_on = db.Column(db.DateTime(), default=datetime.now, onupdate=datetime.now)
+    confirmed = db.Column(db.Boolean, default=False)
 
     @property
     def password(self):
@@ -53,6 +56,87 @@ class User(UserMixin, db.Model):
             password: the password to check against the hash
         """
         return check_password_hash(self.password_hash, password)
+
+    def generate_confirmation_token(self, expiration=3600):
+        """
+        Generate confirmation token for user account
+        Args:
+            expiration (int): the time the generated token will be valid
+        Return:
+            reset_token: encoded(base64) token
+        """
+        confirmation_token = jwt.encode({
+            "confirm": self.id,
+            "exp": datetime.now(tz=timezone.utc)
+            + timedelta(seconds=expiration)
+        }, current_app.config['SECRET_KEY'], algorithm='HS256')
+
+        return confirmation_token
+
+    def confirm(self, token):
+        """
+        Token verification - Checks whether
+        generated token matches the logged-in user
+        Args:
+            token: token to confirm
+        Return:
+            True: if token is confirmed
+                  else
+            False: token is not confirmed
+        """
+        try:
+            data = jwt.decode(token, current_app.config['SECRET_KEY'],
+                              algorithms=['HS256'],
+                              leeway=timedelta(seconds=10))
+        except:
+            return False
+
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        db.session.add(self)
+        return True
+
+    def generate_reset_token(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        return s.dumps({'reset': self.id}).decode('utf-8')
+
+    @staticmethod
+    def reset_password(token, new_password):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token.encode('utf-8'))
+        except:
+            return False
+
+        user = User.query.get(data.get('reset'))
+        if user is None:
+            return False
+        user.password = new_password
+        db.session.add(user)
+        return True
+
+    def generate_email_change_token(self, new_email, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'change_email': self.id, 'new_email': new_email}).decode('utf-8')
+
+    def change_email(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token.encode('utf-8'))
+        except:
+            return False
+        if data.get('change_email') != self.id:
+            return False
+        new_email = data.get('new_email')
+        if new_email is None:
+            return False
+        if self.query.filter_by(email=new_email).first() is not None:
+            return False
+        self.email = new_email
+        db.session.add(self)
+        return True
+
 
 
 @login_manager.user_loader

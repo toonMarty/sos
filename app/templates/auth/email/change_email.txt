@@ -1,0 +1,11 @@
+Dear {{ user.username }},
+
+Hi there!
+
+To confirm your new email address, please click on the following link:
+
+{{ url_for('auth.change_email', token=token, _external=True) }}
+
+Sincerely,
+
+The sos team

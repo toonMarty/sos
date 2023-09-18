@@ -80,13 +80,6 @@
     letter-spacing: 1px;
 }
 
-.sos-logo{
-    height: 51px;
-    width: 107px;
-    margin-top: -15px;
-    margin-left: -17px;
-}
-
 ul.tickets {
     list-style-type: none;
     padding: 0px;
@@ -296,37 +289,111 @@ a.sol-ticket:hover {
 
 .login-form input[type="text"], 
 .login-form input[type="password"],
-.login-form input[type="checkbox"]{
+.login-form input[type="checkbox"],
+.sign-up-form input[type="text"],
+.sign-up-form input[type="password"]
+{
     border-color: #007AFF;
     background-color: #1e1e1e;
     color: white;
 }
 
-.login-card {
-    background-color: #1e1e1e;
+.reset-password-form input[type="password"] {
+    border-color: #007AFF;
+    background-color: #19191a;
+    color: white;
 }
 
-.email-field, .password-field, 
-.remember-me, .card-title, .login-header{
+.login-card, .sign-up-card {
+    background-color: #1e1e1e; 
+}
+
+.reset-password-card {
+    background-color: #19191a;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+img.reset-password-poster {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.name-field {
+    width: 645px;
+}
+
+.email-field, .password-field,
+.remember-me, .card-title, .login-header,
+.sign-up-header, .name-field,
+.sign-up-password, .department-field,
+.sign-up-email-field, .username-field, h3.reset-password-header,
+.current-password-field,
+.new-password-field, .confirm-password-field{
     font-weight: 600;
     color: white;
 }
 
-.login-header {
+.new-email-field, .change-email-password-field {
+    font-weight: bold;
+    
+}
+
+#new_email.form-control, #change_email_password.form-control {
+    width: 380px;
+    border-color: #007AFF;
+}
+
+#current_password.form-control,
+#new_password.form-control, #confirm_password.form-control
+{
+    width: 470px;
+}
+
+
+
+.email-field, .password-field {
+    min-width: 40px;
+}
+
+
+.sign-up-header {
+    margin-top: 4vh;
+}
+
+.login-header, .sign-up-header {
     font-size: 30px;
     font-weight: bold;
 }
 
-#login {
+#login, #sign_up {
     background-color:#1e1e1e;
     color: white;
     font-weight: 600;
     width: 12em;
 }
 
-#login:hover {
+#change_password {
+    background-color: #19191a;
+    margin-top: 20px;
+    color: white;
+    font-weight: 600;
+    width: 12em;
+}
+
+#change_password:hover {
     background-color: #007AFF;
     color: black;
+    font-weight: 600;
+}
+
+#login:hover, #sign_up:hover {
+    background-color: #007AFF;
+    color: black;
+}
+
+#sign_up {
+    margin-top: 4vh;
 }
 
 .login-create-account {
@@ -334,4 +401,169 @@ a.sol-ticket:hover {
     border-top: 1px solid grey;
     margin-top: 30px;
     padding-top: 8px;
+}
+
+.login-password-icon, .login-email-icon{
+    position: absolute;
+    top: 60%;
+    left: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+  
+.login-form input[type="password"],
+.login-form input[type="text"],
+.reset-password-form input[type="password"],
+.change-email-form input[type="password"],
+.change-email-form input[type="text"]
+{
+    padding-left: 30px;
+    width: calc(100% - -100px);
+}
+
+.sign-up-form input[type="text"],
+.sign-up-form input[type="password"],
+.reset-password-form input[type="text"]{
+    padding-left: 30px;
+    width: calc(100% - -10px);
+}
+
+.sign-up-form input#email.form-control, 
+#department.form-control, #username.form-control {
+    width: 570px;
+}
+
+#email.form-control.is-invalid{
+    color: #E3242B;
+}
+
+div.invalid-feedback {
+    position: absolute;
+    top: 80%;
+    right: 0;
+}
+a.btn-login, a.btn-logout {
+    background-color: #212529;
+    border-color: #007AFF;
+    color: white;
+    float: right;
+    margin-top: 16px;
+}
+
+a.dropdown-item {
+    color: white;
+}
+
+a.dropdown-item:hover {
+    background-color: #007AFF;
+}
+
+.login-form input[type="text"]:-webkit-autofill{
+    background-color: #1e1e1e !important; /* Change to the color you want */
+}
+
+.third-container {
+    display: flex;
+}
+
+
+.sign-up-text {
+    margin-top: 60vh;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+}
+
+button.btn.red-btn{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    border-radius: 50%;
+    padding: 10px 10px;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+.confirmation-email-message {
+    font-weight: 600;
+    color: #212529;
+}
+
+.confirmation-email-greeting {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 40px;
+}
+
+a.confirm-email-btn {
+    background-color: white;
+    
+    border-color: #FF007F;
+    color: black;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+a.confirm-email-btn:hover{
+    color: white;
+    background-color: #FF007F;
+    border-color: #FF007F;
+    font-weight: bold;
+}
+
+.reset-password-heading {
+    color:black;
+    font-weight: bold;
+}
+
+.reset-password-body {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.reset-password-email-field {
+    font-weight: bold;
+}
+
+#user_email.form-control {
+    width: 400px;
+    
+}
+
+.reset-password-form input[type="text"]:focus{
+    border-color: white;
+}
+
+#reset_email_submit.btn {
+    margin-top: 20px;
+    width: 400px;
+    background-color: #FFBF00;
+    color: black;
+    border-color: #FFBF00;
+    font-weight: bold;
+}
+#reset_email_submit.btn:hover {
+    background-color: skyblue;
+    border-color: skyblue;
+    color: black;
+    font-weight: bold;
+    
+}
+
+#update_email.btn {
+    color: black;
+    font-weight: bold;
+    background-color: #32CD32;
+    border-color: #32CD32;
+}
+
+#update_email.btn:hover {
+    color: black;
+    font-weight: bold;
+    background-color: #FF91A4;
+    border-color: #FF91A4;
+
 }

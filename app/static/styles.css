@@ -567,3 +567,68 @@ a.confirm-email-btn:hover{
     border-color: #FF91A4;
 
 }
+
+/*Create ticket styles - Begin */
+.create-ticket-header {
+    /*header*/
+    font-weight: bold;
+}
+
+.create-ticket-close-btn {
+    color: grey;
+    font-size: 20px;
+}
+
+.create-ticket-close-btn:hover {
+    color: white;
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    background-color: red;
+}
+
+input#ticket_owner.form-control, 
+#subject.form-control, 
+#ticket_priority.form-select,
+#tv_session_password.form-control,
+#team_viewer_id.form-control,
+#issue.form-control {
+    border-color: white;
+}
+
+input#ticket_owner.form-control:focus, 
+#subject.form-control:focus,
+#ticket_priority.form-select:focus,
+#tv_session_password.form-control:focus,
+#team_viewer_id.form-control:focus,
+#issue.form-control {
+    outline: none;
+    box-shadow: none;
+}
+
+.ticket-field {
+    border-bottom: 1px solid #bbbaba;
+    transition: border-color 0.3s ease;
+}
+
+div.row.mb-3.ticket-field:focus {
+    border-top: 1px solid red;
+    border-color: #007AFF;
+    box-shadow: 0 0 5px #007AFF;
+    background-color: red;
+}
+
+#submit_ticket.btn {
+    background-color: #FFFFFF;
+    color: black;
+    font-weight: bold;
+    width: 400px;
+}
+
+#submit_ticket.btn:hover {
+    background-color: #007AFF;
+    color: white;
+    border-color: #007AFF;
+}
+
+/*- End*/

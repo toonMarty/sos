@@ -86,39 +86,14 @@ ul.tickets {
     margin: 16px 0px 0px 0px;
     border-top: 1px solid #e0e0e0;
 }
-ul.tickets li.ticket {
+/*ul.tickets li.ticket {
     padding: 5px;
     border-bottom: 1px solid #e0e0e0;
-}
+}*/
 ul.tickets li.ticket:hover {
     background-color: #ADD8E6;
 }
 
-.ticket-first-letter {
-    position: absolute;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 32px;
-
-    line-height: 39px;
-
-    width: 26px;
-    height: 35px;
-
-    margin-left: 10px;
-    margin-right: 40px;
-    margin-bottom: -46px;
-    padding-top: 4px;
-}
-
-.ticket-bubble {
-    border-radius: 50%;
-    margin-left: 0;
-    width: 48px;
-    height: 45px;
-}
 
 
 .ticket-subject {
@@ -130,8 +105,7 @@ ul.tickets li.ticket:hover {
 }
 
 .ticket-date {
-    float: right;
-    margin-top: -70px;
+    margin-top: -100px;
 }
 .ticket-issue {
     margin-left: 60px;
@@ -632,3 +606,69 @@ div.row.mb-3.ticket-field:focus {
 }
 
 /*- End*/
+
+/*----View Tickets page styles - Begin*----*/
+.view-ticket-subject {
+    margin-left: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+div.view-ticket-card {
+    background-color: #212529;
+    color: white;
+}
+
+div.view-ticket-card:hover {
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 20px;
+}
+
+.ticket-first-letter {
+    position: absolute;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    color: white;
+    line-height: 39px;
+
+    width: 26px;
+    height: 35px;
+
+    margin-top: 12px;
+    margin-left: 10px;
+    margin-right: 40px;
+    margin-bottom: -46px;
+    padding-top: 4px;
+}
+
+.ticket-bubble {
+    border-radius: 50%;
+    margin-left: 0;
+    width: 48px;
+    height: 45px;
+}
+
+.add-ticket {
+    background-color: #007AFF;
+    border-radius: 50%;
+    height: 58px;
+    width: 60px;
+    margin-top: 20px;
+    padding-bottom: 58px;
+}
+
+.add-ticket:hover {
+    background-color: #3FFF00;
+    color: black;
+}
+
+
+
+/*------------------End------------------*/

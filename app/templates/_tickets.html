@@ -1,6 +1,42 @@
 <ul class="tickets">
     {% for ticket in tickets %}
         <a href="/view-tickets/{{ ticket.subject }}" class="ticket-items"><li class="ticket">
+            <div class="card w-auto view-ticket-card" style="margin-bottom: 10px; border-radius: 20px;">
+            <div class="card-body">
+                <div class="card-title">
+                    <!--<div class="text-start view-ticket-subject">{{ ticket.subject }}</div>-->
+                    <p class="card-text ticket-bubble ticket-first-letter">{{ ticket.get_ticket_subject_first_letter() }}</p>
+                </div>
+
+                <div class="card-text">
+                    <div class="text-start view-ticket-subject">{{ ticket.subject }}</div>
+                    <div class="text-start text-wrap ticket-issue" style="width: 45rem;">
+                        {{ ticket.issue_description }}
+                    </div>
+
+                    <div class="float-end ticket-priority">
+                        {% for priority in ticket.ticket_priority %}
+                            {% if priority == 'L' %}
+                                <div class="float-end">
+                                    <span class="badge" style="background-color: #3FFF00; color: black;">Low</span>
+                                </div>
+                            {% elif priority == 'M' %}
+                                <div class="float-end">
+                                    <span class="badge" style="background-color: #FFBF00; color: black;">Medium</span>
+                                </div>
+                            {% elif priority == 'H' %}
+                                <div class="float-end">
+                                    <span class="badge" style="background-color: #FF0000; color: black;">High</span>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="float-end ticket-date">{{ moment(ticket.date_submitted).fromNow() }}</div>
+                </div>
+            </div>
+            </div>
+        </li></a>
+        <!--<a href="/view-tickets/{{ ticket.subject }}" class="ticket-items"><li class="ticket">
             <div class="ticket-first-letter">
                 {{ ticket.get_ticket_subject_first_letter() }}
             </div>
@@ -28,12 +64,26 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-            </div>
+            </div>-->
 
             <!--<div class="ticket-owner">
                 {{ ticket.ticket_owner }}
             </div>-->
-            <div class="ticket-date">{{ moment(ticket.date_submitted).fromNow() }}</div>
-        </li></a>
+            <!--<div class="ticket-date">{{ moment(ticket.date_submitted).fromNow() }}</div>
+        </li></a>-->
     {% endfor %}
 </ul>
+<div class="float-end text-center add-ticket" style="font-size: 40px;"
+     data-bs-toggle="tooltip" data-bs-placement="bottom"
+     data-bs-custom-class="custom-tooltip" data-bs-title="Create a new ticket">
+    <a href="{{ url_for('main.submit_ticket') }}" style="text-decoration: none; color: black;">
+        <i class="fa-solid fa-plus text-center"></i>
+    </a>
+
+</div>
+
+{% block scripts %}
+    {{ moment.include_moment() }}
+    <script type="text/javascript"
+         src="{{ url_for('static', filename='bubble_color.js') }}"></script>
+{% endblock %}

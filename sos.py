@@ -11,6 +11,7 @@ from flask_migrate import Migrate
 from app.models.novice import Novice
 from app.models.ticket import Ticket
 from app.models.user import User
+from app.models.role import Role, Permission
 
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
@@ -22,7 +23,9 @@ def shell_context():
     return dict(db=db,
                 Novice=Novice,
                 Ticket=Ticket,
-                User=User)
+                User=User,
+                Role=Role,
+                Permission=Permission)
 
 
 @app.cli.command()

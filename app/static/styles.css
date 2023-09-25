@@ -580,6 +580,10 @@ input#ticket_owner.form-control:focus,
     box-shadow: none;
 }
 
+input[type="text"]:focus {
+    border-color: #007AFF;
+}
+
 .ticket-field {
     border-bottom: 1px solid #bbbaba;
     transition: border-color 0.3s ease;
@@ -693,6 +697,20 @@ div.view-ticket-card:hover {
     color: black;
 }
 
-
-
 /*------------------End------------------*/
+
+/* Forbidden page styles - Begin */
+a.forbidden-to-home {
+    color: white;
+    font-weight: bold;
+    width: 250px;
+    background-color: #e04545;
+    border-color: #e04545;
+    border-radius: 25px;
+}
+
+a.forbidden-to-home:hover {
+    background-color: #212529;
+    border-color: #212529;
+}
+/*--------------End-------------*/

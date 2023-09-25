@@ -8,9 +8,11 @@ the users include:
 - Agent
 """
 from app import db, login_manager
+from app.models.role import Role, Permission
 from datetime import datetime, timedelta, timezone
+from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin, LoginManager
+from flask_login import UserMixin, LoginManager, AnonymousUserMixin
 import jwt
 from flask import current_app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -33,6 +35,18 @@ class User(UserMixin, db.Model):
     updated_on = db.Column(db.DateTime(), default=datetime.now, onupdate=datetime.now)
     confirmed = db.Column(db.Boolean, default=False)
 
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+    tickets = db.relationship('Ticket', backref='sender', lazy='dynamic')
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+
+        if self.role is None:
+            if self.email == current_app.config['SOS_ADMIN']:
+                self.role = Role.query.filter_by(name='Administrator').first()
+            if self.role is None:
+                self.role = Role.query.filter_by(default=True).first()
     @property
     def password(self):
         """
@@ -137,6 +151,36 @@ class User(UserMixin, db.Model):
         db.session.add(self)
         return True
 
+    def can(self, perm):
+        return self.role is not None and self.role.has_permission(perm)
+
+    def is_administrator(self):
+        return self.can(Permission.ADMIN)
+
+
+class AnonymousUser(AnonymousUserMixin):
+    """
+    Read-only access to anonymous users
+    """
+    def can(self, permissions):
+        """
+        Check whether an anonymous user has
+        certain permissions
+        Return:
+            False: (why?)anonymous users have Read-only access to the site
+        """
+        return False
+
+    def is_admin(self):
+        """
+        Verify is an anonymous user is an admin
+        Return:
+            False
+        """
+        return False
+
+
+login_manager.anonymous_user = AnonymousUser
 
 
 @login_manager.user_loader

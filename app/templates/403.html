@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}sos | Access Denied{% endblock %}
+
+
+{% block page_content %}
+    <div class="row align-items-center" style="height: 90vh;">
+        <div class="text-center col-sm-6">
+            <img src="/static/images/403-forbidden.jpg" class="img-fluid" height="500">
+        </div>
+
+        <div class="col-sm-6 float-start">
+            <h2 class="reset-password-heading">Access denied</h2>
+            <p class="text-muted reset-password-body">
+                You tried to access a page you did not<br>have
+                prior authorization for.
+            </p>
+
+            <a href="/" class="btn btn-primary forbidden-to-home" role="button">
+                Go back home
+            </a>
+
+        </div>
+    </div>
+
+{% endblock %}
+

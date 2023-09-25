@@ -17,13 +17,12 @@ class TicketForm(FlaskForm):
                                   choices=[('L', 'Low'), ('M', 'Medium'), ('H', 'High')])
 
     tv_session_password = PasswordField('Passcode', validators=[DataRequired()])
-    team_viewer_id = StringField('Your ID', validators=[DataRequired()])
+    team_viewer_id = StringField('TeamViewer ID', validators=[DataRequired()])
 
     issue = TextAreaField('Issue', validators=[DataRequired()],
                           render_kw={'placeholder': 'Describe your issue'})
 
     submit_ticket = SubmitField('Create')
-    cancel_ticket = SubmitField('Cancel')
 
 
 class SearchForm(FlaskForm):

@@ -34,7 +34,17 @@
                 {{ render_nav_item('main.index', 'Home') }}
                 {% if current_user.is_authenticated %}
                     {{ render_nav_item('main.submit_ticket', 'Create Ticket') }}
-                    {{ render_nav_item('main.view_ticket', 'View Tickets') }}
+                    {{ render_nav_item('main.view_ticket', 'View Tickets', username=current_user.username) }}
+                {% endif %}
+
+                {% if current_user.is_authenticated and current_user.can(Permission.ADMIN)  %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Dashboard</a>
+                    </li>
+                    {{ render_nav_item('main.solve_tickets', 'Solve Tickets') }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Escalate</a>
+                    </li>
                 {% endif %}
             </ul>
 

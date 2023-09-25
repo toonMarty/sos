@@ -1,6 +1,7 @@
 import time
 import unittest
-from app.models.user import User
+from app.models.user import User, AnonymousUser
+from app.models.role import Permission, Role
 from app import db, create_app
 
 
@@ -10,6 +11,7 @@ class UserModelTestCase(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
+        Role.insert_roles()
 
     def tearDown(self):
         db.session.remove()
@@ -66,6 +68,7 @@ class UserModelTestCase(unittest.TestCase):
         token = u1.generate_confirmation_token()
         self.assertFalse(u2.confirm(token))
 
+    
     def test_expired_confirmation_token(self):
         u = User(first_name='test', last_name='testing', username='test',
                   email='test@test.com', department='testing',
@@ -76,7 +79,7 @@ class UserModelTestCase(unittest.TestCase):
         token = u.generate_confirmation_token(1)
         time.sleep(15)
         self.assertFalse(u.confirm(token))
-
+    
     def test_valid_reset_token(self):
         u = User(first_name='test', last_name='testing', username='test',
                   email='test@test.com', department='testing',
@@ -139,7 +142,56 @@ class UserModelTestCase(unittest.TestCase):
         self.assertFalse(u2.change_email(token))
         self.assertTrue(u2.email == 'test2@test.com')
 
+    def test_novice_role(self):
+        r = Role.query.filter_by(name='Novice').first()
+        u = User(first_name='test2', last_name='testing2', username='test2',
+                 email='test2@test.com', department='testing',
+                 password='not nice try', role=r)
+        self.assertTrue(u.can(Permission.CREATE_TICKET))
+        self.assertTrue(u.can(Permission.ACCEPT))
+        self.assertFalse(u.can(Permission.SOLVE))
+        self.assertFalse(u.can(Permission.ESCALATE))
+        self.assertFalse(u.can(Permission.ADMIN))
 
+    def test_user_role(self):
+        u = User(first_name='test2', last_name='testing2', username='test2',
+                 email='test2@test.com', department='testing',
+                 password='not nice try')
 
+        self.assertTrue(u.can(Permission.CREATE_TICKET))
+        self.assertFalse(u.can(Permission.SOLVE))
+        self.assertFalse(u.can(Permission.ESCALATE))
+        self.assertFalse(u.can(Permission.ADMIN))
+        self.assertFalse(u.can(Permission.ACCEPT))
 
+    def test_agent_role(self):
+        r = Role.query.filter_by(name='Agent').first()
+        u = User(first_name='test2', last_name='testing2', username='test2',
+                 email='test2@test.com', department='testing',
+                 password='not nice try', role=r)
 
+        self.assertTrue(u.can(Permission.SOLVE))
+        self.assertTrue(u.can(Permission.ESCALATE))
+        self.assertTrue(u.can(Permission.CREATE_TICKET))
+        self.assertFalse(u.can(Permission.ACCEPT))
+        self.assertFalse(u.can(Permission.ADMIN))
+
+    def test_admin_role(self):
+        r = Role.query.filter_by(name='Administrator').first()
+        u = User(first_name='test2', last_name='testing2', username='test2',
+                 email='test2@test.com', department='testing',
+                 password='not nice try', role=r)
+
+        self.assertTrue(u.can(Permission.ADMIN))
+        self.assertTrue(u.can(Permission.ACCEPT))
+        self.assertTrue(u.can(Permission.SOLVE))
+        self.assertTrue(u.can(Permission.ESCALATE))
+        self.assertTrue(u.can(Permission.CREATE_TICKET))
+
+    def test_anonymous_user(self):
+        u = AnonymousUser()
+        self.assertFalse(u.can(Permission.ACCEPT))
+        self.assertFalse(u.can(Permission.SOLVE))
+        self.assertFalse(u.can(Permission.ESCALATE))
+        self.assertFalse(u.can(Permission.CREATE_TICKET))
+        self.assertFalse(u.can(Permission.ADMIN))

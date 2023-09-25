@@ -26,7 +26,8 @@ class Ticket(SearchableMixin, db.Model):
     team_viewer_id = db.Column(db.String(255), default='000')
     team_viewer_session_password = db.Column(db.String(255), nullable=False)
 
-    novice_id = db.Column(db.Integer, db.ForeignKey('novices.id'))
+    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
 
     def create_ticket(self):
         """

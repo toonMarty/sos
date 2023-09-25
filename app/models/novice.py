@@ -15,13 +15,12 @@ class Novice(db.Model):
     __tablename__ = 'novices'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    novice_name = db.Column(db.String(128), nullable=False)
-    novice_username = db.Column(db.String(64), unique=True, nullable=False)
-    novice_department = db.Column(db.String(32), nullable=False)
-    created_on = db.Column(db.DateTime(), default=datetime.now)
-    updated_on = db.Column(db.DateTime(), default=datetime.now, onupdate=datetime.now)
+    close_ticket = db.Column(db.Boolean, default=False)
 
-    tickets = db.relationship('Ticket', backref='novice', lazy='dynamic')
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    # tickets = db.relationship('Ticket', backref='novice', lazy='dynamic')
+
+    # novice = db.relationship('User', foreign_keys=novice_id)
 
     def create_novice(self):
         """Persist a user object to a database"""

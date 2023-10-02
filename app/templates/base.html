@@ -35,6 +35,9 @@
                 {% if current_user.is_authenticated %}
                     {{ render_nav_item('main.submit_ticket', 'Create Ticket') }}
                     {{ render_nav_item('main.view_ticket', 'View Tickets', username=current_user.username) }}
+                    <span class="position-relative translate-middle badge rounded-pill bg-danger">
+                        {{ tkt_count }}
+                    </span>
                 {% endif %}
 
                 {% if current_user.is_authenticated and current_user.can(Permission.ADMIN)  %}
@@ -78,7 +81,8 @@
             {% endif %}
         </div>
     </div>
-    </nav></div>
+    </nav>
+
     <body>
         <!-- Your page content -->
         {% block content %}

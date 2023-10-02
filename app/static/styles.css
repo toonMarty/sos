@@ -176,7 +176,7 @@ a.ticket-items:visited {
     color: black;
 }
 
-.sol-ticket {
+/*.sol-ticket {
     float: right;
     margin-top: -54px;
     margin-right: 0;
@@ -185,7 +185,7 @@ a.ticket-items:visited {
     color: white;
     font-weight:600;
     padding: 0 8px 0 0;
-}
+}*/
 
 a.sol-ticket:hover {
     background-color: white;
@@ -697,6 +697,12 @@ div.view-ticket-card:hover {
     color: black;
 }
 
+
+span.badge {
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
 /*------------------End------------------*/
 
 /* Forbidden page styles - Begin */
@@ -714,3 +720,94 @@ a.forbidden-to-home:hover {
     border-color: #212529;
 }
 /*--------------End-------------*/
+
+/*Solve Ticket Styles - Begin*/
+
+
+div.sol-ticket-issue {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+    padding: 0px 20px 20px 20px;
+    /*font-size: 1.3rem;*/
+    margin: 0;
+    resize: horizontal;
+}
+
+a.solve-ticket {
+    color: white;
+    background-color: #212529;
+    border-color: #007AFF;
+    width: 120px;
+    font-weight: bold;
+}
+
+a.solve-ticket:hover {
+    background-color: #007AFF;
+    border-color: #007AFF;
+    color: black;
+}
+
+div.sol-ticket-owner, div.sol-ticket-subject, 
+div.sol-ticket-priority, div.sol-ticket-tv-id, 
+div.sol-ticket-tv-pswd, div.sol-ticket-date{
+    padding: 0px 20px 40px 20px;
+}
+
+th.sol-ticket-owner {
+    padding-left: 200px;
+}
+
+div.sol-ticket-date {
+    width: 150px;
+}
+
+div.sol-ticket-tv-id, div.sol-ticket-tv-pswd {
+    width: 250px;
+}
+
+.copy-id:hover {
+    color: #007AFF;
+}
+
+.copy-id:active {
+    color:#3FFF00;
+}
+
+table.table  { 
+    margin: auto;
+    border: none;
+    border-color: white;
+    border-style: hidden;
+}
+
+/*.sol-ticket-tv-pswd {
+    -webkit-text-security: disc;
+}*/
+
+
+
+/*-----------End------------*/
+
+body {
+    background-color: #fbfbfb;
+  }
+  @media (min-width: 991.98px) {
+    main {
+      padding-left: 240px;
+    }
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 58px 0 0; /* Height of navbar */
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    width: 240px;
+    z-index: 600;
+  }

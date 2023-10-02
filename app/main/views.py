@@ -49,7 +49,7 @@ def view_ticket(username):
         return render_template('404.html')
     # tickets = Ticket.query.group_by(Ticket.subject).order_by(Ticket.date_submitted.desc()).all()
     tickets = user.tickets.group_by(Ticket.subject).order_by(Ticket.date_submitted.desc()).all()
-    tkt_count = Ticket.ticket_count(tickets)
+    tkt_count = user.tickets.count()
     
     return render_template('view_ticket.html', user=user,
                            tickets=tickets, tkt_count=tkt_count)
@@ -72,10 +72,9 @@ def view_ticket_by_subject(username, ticket_subject):
 @permission_required(Permission.SOLVE)
 def solve_tickets():
     tickets = Ticket.query.order_by(Ticket.ticket_priority.asc()).all()
-    tkt_count = Ticket.ticket_count(tickets)
+    # tkt_count = Ticket.ticket_count(tickets)
     
-    return render_template('solve_ticket.html', tickets=tickets,
-                           tkt_count=tkt_count)
+    return render_template('solve_ticket.html', tickets=tickets)
 
 
 @main.before_request

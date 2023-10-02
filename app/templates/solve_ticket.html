@@ -4,7 +4,102 @@
 {% block title %} sos - Solve Tickets {% endblock %}
 
 {% block page_content %}
-    <ul class="tickets">
+    <table class="table table-dark table-hover sol-tickets-table" style="margin-top: 10vh;">
+        <thead>
+            <tr>
+                <th scope="col" class="sol-ticket-ID">#</th>
+                <th scope="col" style="padding-left: 25px;">Ticket Owner</th>
+                <th scope="col" style="padding-left: 25px;">Subject</th>
+                <th scope="col" style="padding-left: 25px;">Priority</th>
+                <th scope="col" style="padding-left: 25px;">Issue</th>
+                <th scope="col" style="padding-left: 25px;">Partner-ID</th>
+                <th scope="col" style="padding-left: 25px;">Passcode</th>
+                <th scope="col" style="padding-left: 25px;">Time submitted</th>
+                <th scope="col">Solve</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+                <th scope="row">
+                    <td>
+                        <div class="sol-ticket-owner">
+                            {{ ticket.ticket_owner }}
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="sol-ticket-subject">
+                            {{ ticket.subject }}
+                        </div>
+
+                    </td>
+
+                    <td>
+                        <div class="sol-ticket-priority">
+                            {% for priority in ticket.ticket_priority %}
+                                {% if priority == 'L' %}
+                                    <div>
+                                        <span class="badge" style="background-color: #3FFF00; color: black;">Low</span>
+                                    </div>
+
+                                {% elif priority == 'M' %}
+                                    <div>
+                                        <span class="badge" style="background-color: #FFBF00; color: black;">Medium</span>
+                                    </div>
+
+                                {% elif priority == 'H' %}
+                                    <div>
+                                        <span class="badge" style="background-color: #FF0000; color: black;">High</span>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="sol-ticket-issue">
+                        {{ ticket.issue_description }}
+                            </div>
+                    </td>
+
+                    <td>
+                        <div class="sol-ticket-tv-id" data-bs-toggle="tooltip" data-bs-title="Copy">
+                            {{ ticket.team_viewer_id }} &nbsp;
+                            <span>
+                                <i class="fa-regular fa-copy copy-id" onClick="copyToClipboard({{ ticket.team_viewer_id }})"></i>
+                            </span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="sol-ticket-tv-pswd">
+                            {{ ticket.team_viewer_session_password }} &nbsp;
+                            <span >
+                                <i class="fa-regular fa-copy copy-id" onClick="copyToClipboard('{{ ticket.team_viewer_session_password }}')"></i>
+                                <!--<i class="fa-regular fa-copy copy-id" onClick="copyToClipboard({{ ticket.team_viewer_session_password }})"></i>-->
+                            </span>
+
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="sol-ticket-date">
+                            {{ moment(ticket.date_submitted).fromNow() }}
+                        </div>
+                    </td>
+
+                    <td>
+                        <a class="btn btn-default solve-ticket" href="https://start.teamviewer.com" target="_blank">
+                            Solve
+                        </a>
+                    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!--<ul class="tickets">
     {% for ticket in tickets %}
         <li class="ticket">
             <div class="ticket-first-letter">
@@ -71,6 +166,12 @@
             <div class="ticket-date">{{ moment(ticket.date_submitted).fromNow() }}</div>
         </li>
     {% endfor %}
-</ul>
+</ul>-->
 
+{% endblock %}
+
+{% block scripts %}
+    {{ moment.include_moment() }}
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='copy_details.js') }}"></script>
 {% endblock %}

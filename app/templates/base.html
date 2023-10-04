@@ -19,7 +19,7 @@
     </head>
     {% from 'bootstrap5/nav.html' import render_nav_item %}
     {% from 'bootstrap5/utils.html' import render_icon %}
-    <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <!--<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('main.index') }}">
                 <img src="/static/images/sos_logo.png"
@@ -38,9 +38,12 @@
                     <span class="position-relative translate-middle badge rounded-pill bg-danger">
                         {{ tkt_count }}
                     </span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notifications</a>
+                    </li>
                 {% endif %}
 
-                {% if current_user.is_authenticated and current_user.can(Permission.ADMIN)  %}
+                {% if current_user.is_authenticated and current_user.can(Permission.ADMIN) or current_user.can(Permission.SOLVE) %}
                     <li class="nav-item">
                         <a class="nav-link" href="#">Dashboard</a>
                     </li>
@@ -64,6 +67,7 @@
                             <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
                         </ul>
                     </li>
+                    {{ render_nav_item('main.user', 'Profile', username=current_user.username) }}
                     {% else %}
                     <li>
                         <a class="btn btn-primary btn-login" role="button" href="{{ url_for('auth.login') }}">Login</a>
@@ -81,12 +85,129 @@
             {% endif %}
         </div>
     </div>
-    </nav>
+    </nav>-->
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <img src="/static/images/sos_logo.png" height="50" width="50">
+            </a>
+            {% if current_user.is_authenticated %}
+                <i class="fa-solid fa-magnifying-glass text-center search-icon"></i>
+                {% if g.search_form %}
+                    <form class="d-flex" method="get" action="{{ url_for('main.search') }}">
+                        <div class="form-group search-form">
+                            {{ g.search_form.q(size=50, class='form-control me-2', placeholder=g.search_form.q.label.text) }}
+                        </div>
+                    </form>
+                {% endif %}
+            {% endif %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+            style="border: none;">
+                <span class="navbar-toggler-icon"></span>
+                <!--<i class="fa-solid fa-bars"></i>-->
+            </button>
+            <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <img class="img-fluid mx-auto" src="/static/images/sos_logo.png" height="50" width="50">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav margin-start flex-grow-1 pe-3" style="float: left">
+                        <div class="home-container">
+                            <i class="fa-solid fa-house-chimney menu-icon"></i>
+                            <span>{{ render_nav_item('main.index', 'Home') }}</span>
+                        </div>
+
+                        {% if current_user.is_authenticated and current_user.can(Permission.ADMIN) or current_user.can(Permission.SOLVE) %}
+                            <div class="home-container">
+                                <i class="fa-solid fa-gauge-high menu-icon"></i>
+                                <a class="nav-link" href="#">Dashboard</a>
+                            </div>
+
+                            <div class="home-container">
+                                <img src="/static/images/solution.png" class="img-fluid menu-icon">
+                                {{ render_nav_item('main.solve_tickets', 'Solve Tickets') }}
+                            </div>
+
+                            <div class="home-container" data-bs-toggle="tooltip"
+                                 data-bs-placement="right" data-bs-title="Transfer a ticket to another agent">
+                                <img src="/static/images/escalator.png" class="img-fluid menu-icon">
+                                <a class="nav-link" href="#">Escalate ticket</a>
+                            </div>
+                        {% endif %}
+
+                        {% if current_user.is_authenticated %}
+                            <div class="home-container">
+                                <i class="fa-solid fa-ticket menu-icon"></i>
+                                <span>{{ render_nav_item('main.submit_ticket', 'Create Ticket') }}</span>
+                            </div>
+
+                            <div class="home-container">
+                                <i class="fa-solid fa-eye menu-icon"></i>
+                                {{ render_nav_item('main.view_ticket', 'View Tickets', username=current_user.username) }}
+                                <span class="position-relative translate-middle badge rounded-pill bg-danger">
+                                    {{ tkt_count }}
+                                </span>
+                            </div>
+
+                            <div class="home-container">
+                                <i class="fa-regular fa-message menu-icon"></i>
+                                <a class="nav-link" href="#">Notifications</a>
+                            </div>
+
+                            <div class="home-container">
+                                <i class="fa-solid fa-gear menu-icon"></i>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Account Settings
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class="dropdown-item" href="{{ url_for('auth.change_password') }}">Change Password</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <div class="home-container">
+                                            <i class="fa-solid fa-power-off logout-icon"></i>
+                                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                                        </div>
+
+                                    </ul>
+                                </li>
+                            </div>
+                        {% else %}
+                            <div class="home-container">
+                            <i class="fa-solid fa-user menu-icon"></i>
+                            <a class="nav-link" href="{{ url_for('auth.login') }}" style="color: white;">Login</a>
+                            </div>
+
+                        {% endif %}
+        </ul>
+        <!--<form class="d-flex mt-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>-->
+      </div>
+                <div class="offcanvas-footer" style="margin-left: 20px;">
+                    {% if current_user.is_authenticated and current_user.can(Permission.ADMIN) %}
+                        <div class="home-container" style="margin-bottom: 20px;">
+                                <i class="fa-solid fa-user menu-icon"></i>
+                                {{ render_nav_item('main.user', current_user.username, username=current_user.username) }}
+                            </div>
+
+                        {% endif %}
+                </div>
+    </div>
+  </div>
+</nav>
 
     <body>
         <!-- Your page content -->
         {% block content %}
-        <div class="container">
+        <div class="container" style="width: 100%;">
             {% for message in get_flashed_messages() %}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <div>

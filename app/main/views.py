@@ -2,18 +2,18 @@
 """
 Code to run for each URL requested by the user
 """
-from flask_login import current_user
+from flask_login import current_user, login_required
 from sqlalchemy import func
 
 from app.main import main
 from app.decorators import permission_required, admin_required
 from flask import render_template, redirect, url_for, flash, request, \
     session, g, current_app, abort
-from app.main.forms import TicketForm, SearchForm
+from app.main.forms import TicketForm, SearchForm, EditUserProfileAdminForm
 from app.models.ticket import Ticket
 from sqlalchemy.exc import OperationalError
 from app import db
-from app.models.role import Permission
+from app.models.role import Permission, Role
 from app.models.user import User
 
 
@@ -27,6 +27,7 @@ def index():
 def submit_ticket():
     form = TicketForm()
 
+    form.ticket_owner.data = current_user.username
     if current_user.can(Permission.CREATE_TICKET) and form.validate_on_submit():
         ticket = Ticket(ticket_owner=form.ticket_owner.data,
                         subject=form.subject.data,
@@ -43,10 +44,13 @@ def submit_ticket():
 
 
 @main.route('/view-tickets/<username>', methods=['GET', 'POST'], strict_slashes=False)
+@login_required
 def view_ticket(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         return render_template('404.html')
+    if user.username != current_user.username:
+        return render_template('403.html')
     # tickets = Ticket.query.group_by(Ticket.subject).order_by(Ticket.date_submitted.desc()).all()
     tickets = user.tickets.group_by(Ticket.subject).order_by(Ticket.date_submitted.desc()).all()
     tkt_count = user.tickets.count()
@@ -103,3 +107,46 @@ def search():
                                prev_url=prev_url)
     except OperationalError:
         return render_template('404.html')
+
+
+@main.route('/user/<username>', methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+
+    if user.username != current_user.username and not current_user.can(Permission.ADMIN):
+        return render_template('403.html')
+    tkt_count = user.tickets.count()
+    return render_template('user_profile.html', user=user, tkt_count=tkt_count)
+
+
+@main.route('/edit-profile/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_profile_admin(id):
+    user = User.query.get_or_404(id)
+    form = EditUserProfileAdminForm(user=user)
+
+    if form.validate_on_submit():
+        user.email = form.email.data
+        user.username = form.username.data
+        user.confirmed = form.confirmed.data
+        user.role = Role.query.get(form.role.data)
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.department = form.department.data
+        db.session.add(user)
+        db.session.commit()
+        flash(f"{user.username}'s profile successfully updated")
+        return redirect(url_for('main.user', username=user.username))
+    form.email.data = user.email
+    form.username.data = user.username
+    form.confirmed.data = user.confirmed
+    form.role.data = user.role_id
+    form.first_name.data = user.first_name
+    form.last_name.data = user.last_name
+    form.department.data = user.department
+
+    return render_template('edit_profile_admin.html', form=form, user=user)
+
+

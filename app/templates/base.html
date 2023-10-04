@@ -19,74 +19,6 @@
     </head>
     {% from 'bootstrap5/nav.html' import render_nav_item %}
     {% from 'bootstrap5/utils.html' import render_icon %}
-    <!--<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">
-                <img src="/static/images/sos_logo.png"
-                     alt="sos-logo-big-outer-grey semi-circle-with-sos-in-it-and-smaller-solid-blue-semi-circle"
-                     height="50" width="50"/>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                {{ render_nav_item('main.index', 'Home') }}
-                {% if current_user.is_authenticated %}
-                    {{ render_nav_item('main.submit_ticket', 'Create Ticket') }}
-                    {{ render_nav_item('main.view_ticket', 'View Tickets', username=current_user.username) }}
-                    <span class="position-relative translate-middle badge rounded-pill bg-danger">
-                        {{ tkt_count }}
-                    </span>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notifications</a>
-                    </li>
-                {% endif %}
-
-                {% if current_user.is_authenticated and current_user.can(Permission.ADMIN) or current_user.can(Permission.SOLVE) %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
-                    </li>
-                    {{ render_nav_item('main.solve_tickets', 'Solve Tickets') }}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Escalate</a>
-                    </li>
-                {% endif %}
-            </ul>
-
-            <div class="me-auto">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if current_user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu" style="background-color:#212529; color: white;">
-                            <li><a class="dropdown-item" href="{{ url_for('auth.change_password') }}">Change Password</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
-                        </ul>
-                    </li>
-                    {{ render_nav_item('main.user', 'Profile', username=current_user.username) }}
-                    {% else %}
-                    <li>
-                        <a class="btn btn-primary btn-login" role="button" href="{{ url_for('auth.login') }}">Login</a>
-                    </li>
-                </ul>
-                {% endif %}
-            </div>
-
-            {% if g.search_form %}
-                <form class="d-flex" method="get" action="{{ url_for('main.search') }}">
-                    <div class="form-group">
-                        {{ g.search_form.q(size=20, class='form-control me-2', placeholder=g.search_form.q.label.text) }}
-                    </div>
-                </form>
-            {% endif %}
-        </div>
-    </div>
-    </nav>-->
-
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('main.index') }}">
@@ -180,17 +112,14 @@
                             </div>
                         {% else %}
                             <div class="home-container">
-                            <i class="fa-solid fa-user menu-icon"></i>
-                            <a class="nav-link" href="{{ url_for('auth.login') }}" style="color: white;">Login</a>
+                                <i class="fa-solid fa-user menu-icon"></i>
+                                <a class="nav-link" href="{{ url_for('auth.login') }}" style="color: white;">Login</a>
                             </div>
 
                         {% endif %}
-        </ul>
-        <!--<form class="d-flex mt-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>-->
-      </div>
+                    </ul>
+                </div>
+
                 <div class="offcanvas-footer" style="margin-left: 20px;">
                     {% if current_user.is_authenticated and current_user.can(Permission.ADMIN) %}
                         <div class="home-container" style="margin-bottom: 20px;">
@@ -200,14 +129,14 @@
 
                         {% endif %}
                 </div>
-    </div>
-  </div>
-</nav>
+            </div>
+        </div>
+    </nav>
 
     <body>
         <!-- Your page content -->
         {% block content %}
-        <div class="container" style="width: 100%;">
+        <div class="container" style="max-width: 100%;">
             {% for message in get_flashed_messages() %}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <div>

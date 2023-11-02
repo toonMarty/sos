@@ -61,7 +61,7 @@
 
                             <div class="home-container">
                                 <img src="/static/images/solution.png" class="img-fluid menu-icon">
-                                {{ render_nav_item('main.solve_tickets', 'Solve Tickets') }}
+                                {{ render_nav_item('main.solve_tickets', 'Solve Tickets', username=current_user.username) }}
                             </div>
 
                             <div class="home-container" data-bs-toggle="tooltip"
@@ -86,7 +86,7 @@
                             </div>
 
                             <div class="home-container">
-                                <i class="fa-regular fa-message menu-icon"></i>
+                                <i class="fa-regular fa-bell menu-icon"></i>
                                 <a class="nav-link" href="#">Notifications</a>
                             </div>
 
@@ -123,7 +123,7 @@
                 <div class="offcanvas-footer" style="margin-left: 20px;">
                     {% if current_user.is_authenticated and current_user.can(Permission.ADMIN) %}
                         <div class="home-container" style="margin-bottom: 20px;">
-                                <i class="fa-solid fa-user menu-icon"></i>
+                                <img src="/static/images/user-account.png" class="img-fluid menu-icon">
                                 {{ render_nav_item('main.user', current_user.username, username=current_user.username) }}
                             </div>
 

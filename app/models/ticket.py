@@ -9,6 +9,8 @@ from app import db
 from datetime import datetime
 from .searchable_mixin import SearchableMixin
 import random
+import collections
+from typing import DefaultDict
 
 
 class Ticket(SearchableMixin, db.Model):
@@ -57,3 +59,4 @@ class Ticket(SearchableMixin, db.Model):
         Total ticket count for a particular user
         """
         return db.session.query(Ticket.id).count()
+

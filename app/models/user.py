@@ -7,6 +7,8 @@ the users include:
 - Novice
 - Agent
 """
+from sqlalchemy.ext.hybrid import hybrid_method
+
 from app import db, login_manager
 from app.models.role import Role, Permission
 from datetime import datetime, timedelta, timezone
@@ -150,6 +152,7 @@ class User(UserMixin, db.Model):
         self.email = new_email
         db.session.add(self)
         return True
+
 
     def can(self, perm):
         return self.role is not None and self.role.has_permission(perm)

@@ -15,6 +15,8 @@ from sqlalchemy.exc import OperationalError
 from app import db
 from app.models.role import Permission, Role
 from app.models.user import User
+from app.ticket_allocator import allocate_ticket
+from sqlalchemy import or_
 
 
 @main.route('/', methods=['GET', 'POST'], strict_slashes=False)
@@ -72,13 +74,20 @@ def view_ticket_by_subject(username, ticket_subject):
                            tickets=tickets, ticket_subject=ticket_subject)
 
 
-@main.route('/agent/solve-tickets', methods=['GET', 'POST'], strict_slashes=False)
+@main.route('/agent/<username>/solve-tickets', methods=['GET', 'POST'], strict_slashes=False)
 @permission_required(Permission.SOLVE)
-def solve_tickets():
-    tickets = Ticket.query.order_by(Ticket.ticket_priority.asc()).all()
-    # tkt_count = Ticket.ticket_count(tickets)
-    
-    return render_template('solve_ticket.html', tickets=tickets)
+def solve_tickets(username):
+    tickets = Ticket.query.order_by(Ticket.date_submitted.desc()).all()  # returns a list of all ticket objects
+    user = User.query.filter_by(username=username).first()
+    users = User.query.filter_by(department='Testing').all()
+
+    res = allocate_ticket(tickets, users)
+
+    tickets = res[user]
+    user.tickets = tickets
+    tickets = user.tickets.order_by(Ticket.date_submitted.desc()).all()
+
+    return render_template('solve_ticket.html', tickets=tickets, username=username)
 
 
 @main.before_request

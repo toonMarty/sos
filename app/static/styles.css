@@ -877,3 +877,97 @@ div.search-form {
 }
 
 /*-----End---------*/
+
+/*Begin - [Dashboard Styles]*/
+
+div.status-card {
+    height: 20vh;
+    color: white;
+}
+
+div.status-details > h5.card-title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+div.status-card>div.card-body>div.text-center>p.card-text {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+div.new {
+    background: #76b852;
+    background: -webkit-linear-gradient(to right, #8DC26F, #76b852);
+    background: linear-gradient(to right, #8DC26F, #76b852);
+}
+
+div.on-hold {
+    background: #cb2d3e;
+    background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);
+    background: linear-gradient(to right, #ef473a, #cb2d3e);
+
+}
+
+div.solved {
+    background: #2C3E50;
+    background: -webkit-linear-gradient(to right, #4CA1AF, #2C3E50);
+    background: linear-gradient(to right, #4CA1AF, #2C3E50);
+
+}
+
+div.pending {
+    background: #ffe259;
+    background: -webkit-linear-gradient(to right, #ffa751, #ffe259);
+    background: linear-gradient(to right, #ffa751, #ffe259);
+
+}
+
+div.closed {
+    background: #6441A5;  
+background: -webkit-linear-gradient(to right, #2a0845, #6441A5);  
+background: linear-gradient(to right, #2a0845, #6441A5); 
+}
+
+div.sent {
+    background: #fe8c00;
+    background: -webkit-linear-gradient(to right, #f83600, #fe8c00);
+    background: linear-gradient(to right, #f83600, #fe8c00);
+
+}
+
+div.escalated {
+    background: #ADD100;
+    background: -webkit-linear-gradient(to right, #7B920A, #ADD100);
+    background: linear-gradient(to right, #7B920A, #ADD100);
+
+}
+
+div.re-sent {
+    background: #FBD3E9;
+    background: -webkit-linear-gradient(to right, #BB377D, #FBD3E9);
+    background: linear-gradient(to right, #BB377D, #FBD3E9);
+
+}
+
+.dashboard-ticket-field {
+    display: inline-block;
+
+}
+
+.db-ticket-owner {
+    margin-right: 150px;
+    font-weight: bold;
+}
+
+.db-date-submitted {
+    float: right;
+}
+
+.db-ticket-subject {
+    padding-left: 50px;
+}
+
+div.dboard-ticket-list {
+    border-bottom: 1px solid blue;
+}
+/*----------End------------*/

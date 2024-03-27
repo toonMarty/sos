@@ -77,7 +77,7 @@ def view_ticket_by_subject(username, ticket_subject):
 @main.route('/agent/<username>/solve-tickets', methods=['GET', 'POST'], strict_slashes=False)
 @permission_required(Permission.SOLVE)
 def solve_tickets(username):
-    tickets = Ticket.query.order_by(Ticket.date_submitted.desc()).all()  # returns a list of all ticket objects
+    tickets = Ticket.query.order_by(Ticket.ticket_priority.asc()).all()  # returns a list of all ticket objects
     user = User.query.filter_by(username=username).first()
     users = User.query.filter_by(department='Testing').all()
 
@@ -157,5 +157,27 @@ def edit_profile_admin(id):
     form.department.data = user.department
 
     return render_template('edit_profile_admin.html', form=form, user=user)
+
+
+@main.route('/user/<username>/dashboard', methods=['GET', 'POST'], strict_slashes=False)
+def user_dashboard(username):
+    user = User.query.filter_by(username=username).first()
+    sent = user.tickets.count()
+
+    # bad bad idea
+    tickets = Ticket.query.order_by(Ticket.ticket_priority.asc()).all()  # returns a list of all ticket objects
+    user_agent = User.query.filter_by(username=username).first()
+    users_agents = User.query.filter_by(department='Testing').all()
+
+    res = allocate_ticket(tickets, users_agents)
+
+    tickets = res[user_agent]
+    user_agent.tickets = tickets
+    new_tickets = user_agent.tickets.count()
+
+    '''if user_agent:
+        return render_template('solve_ticket.html', tickets=tickets)'''
+    return render_template('user_dashboard.html', user=user,
+                           sent=sent, new_tickets=new_tickets, tickets=tickets)
 
 

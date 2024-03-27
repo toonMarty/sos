@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block title %} sos | Dashboard {% endblock %}
+
+
+{% block page_content %}
+<div class="row row-cols-3 row-cols-md-4 g-4 mx-auto ticket-status-cards" style="margin-top: 10vh;">
+  <div class="col">
+    <div class="card status-card new">
+      <div class="card-body">
+        <div class="text-center status-details">
+          <h5 class="card-title">New</h5>
+          <p class="card-text">{{ new_tickets }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card status-card pending">
+      <div class="card-body">
+        <div class="text-center status-details">
+          <h5 class="card-title">Pending</h5>
+          <p class="card-text">6</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card status-card on-hold">
+      <div class="card-body">
+        <div class="text-center status-details">
+          <h5 class="card-title">On-Hold</h5>
+          <p class="card-text">4</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card status-card escalated">
+      <div class="card-body">
+        <div class="text-center status-details">
+          <h5 class="card-title">Escalated</h5>
+          <p class="card-text">8</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card status-card solved">
+      <div class="card-body">
+        <div class="text-center status-details">
+          <h5 class="card-title">Solved</h5>
+          <p class="card-text">12</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card status-card closed">
+      <div class="card-body">
+        <div class="text-center status-details">
+          <h5 class="card-title">Closed</h5>
+          <p class="card-text">22</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card status-card sent">
+      <div class="card-body">
+        <div class="text-center status-details">
+          <h5 class="card-title">Sent</h5>
+          <p class="card-text">{{ sent }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card status-card re-sent">
+      <div class="card-body">
+        <div class="text-center status-details">
+          <h5 class="card-title">Re-sent</h5>
+          <p class="card-text">25</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 5vh;">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">New</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Escalated</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Closed</button>
+    </li>
+  </ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"></div>
+</div>
+  {% for ticket in tickets %}
+
+    {% if ticket.ticket_priority == 'H' %}
+        <ul class="list-group list-group-horizontal-xx dboard-ticket-list" style="margin-top: 5vh;">
+          <li class="list-group-item">
+            <div class="dashboard-ticket-field db-ticket-owner">
+              {{ ticket.ticket_owner }}
+            </div>
+            <div class="dashboard-ticket-field db-priority">
+              {% if ticket.ticket_priority == 'H' %}
+                <div>
+                  <span class="badge" style="background-color: #FF0000; color: white;">High</span>
+                </div>
+              {% endif %}
+            </div>
+            <div class="dashboard-ticket-field db-ticket-subject">
+              {{ ticket.subject }} -
+            </div>
+
+            <div class="text-muted dashboard-ticket-field db-issue">
+              {{ ticket.issue_description }}
+            </div>
+
+
+            <div class="dashboard-ticket-field db-date-submitted">
+              {{ moment(ticket.date_submitted).format('D MMM HH:MM') }}
+            </div>
+          </li>
+
+        </ul>
+
+
+    {% endif %}
+
+  {% endfor %}
+</div>
+
+
+<table class="table">
+
+  <tbody>
+    <tr style="border: 1px solid #bdbdbd">
+      <th scope="row"></th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}
+
